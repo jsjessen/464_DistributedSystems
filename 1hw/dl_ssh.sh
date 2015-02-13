@@ -3,7 +3,7 @@
 package=package
 
 echo
-echo "Uploading..."
+echo "Downloading..."
 
 while [ $1 ]
 do
