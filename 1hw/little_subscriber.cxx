@@ -110,7 +110,10 @@ void LittleMsgListener::on_data_available(DDSDataReader* reader)
 
     for (i = 0; i < data_seq.length(); ++i) {
         if (info_seq[i].valid_data) {
-            LittleMsgTypeSupport::print_data(&data_seq[i]);
+            //LittleMsgTypeSupport::print_data(&data_seq[i]);
+            printf("\nLittleMsg Received:\n");
+            printf("sender: %s\n", data_seq[i].sender);
+            printf("message: %s\n", data_seq[i].message);
         }
     }
 
@@ -122,7 +125,7 @@ void LittleMsgListener::on_data_available(DDSDataReader* reader)
 
 /* Delete all entities */
 static int subscriber_shutdown(
-    DDSDomainParticipant *participant)
+        DDSDomainParticipant *participant)
 {
     DDS_ReturnCode_t retcode;
     int status = 0;
@@ -145,13 +148,13 @@ static int subscriber_shutdown(
        domain participant factory for people who want to release memory used
        by the participant factory. Uncomment the following block of code for
        clean destruction of the singleton. */
-/*
-    retcode = DDSDomainParticipantFactory::finalize_instance();
-    if (retcode != DDS_RETCODE_OK) {
-        printf("finalize_instance error %d\n", retcode);
-        status = -1;
-    }
-*/
+    /*
+       retcode = DDSDomainParticipantFactory::finalize_instance();
+       if (retcode != DDS_RETCODE_OK) {
+       printf("finalize_instance error %d\n", retcode);
+       status = -1;
+       }
+       */
     return status;
 }
 
@@ -171,8 +174,8 @@ extern "C" int subscriber_main(int domainId, int sample_count)
     /* To customize the participant QoS, use 
        the configuration file USER_QOS_PROFILES.xml */
     participant = DDSTheParticipantFactory->create_participant(
-        domainId, DDS_PARTICIPANT_QOS_DEFAULT, 
-        NULL /* listener */, DDS_STATUS_MASK_NONE);
+            domainId, DDS_PARTICIPANT_QOS_DEFAULT, 
+            NULL /* listener */, DDS_STATUS_MASK_NONE);
     if (participant == NULL) {
         printf("create_participant error\n");
         subscriber_shutdown(participant);
@@ -182,7 +185,7 @@ extern "C" int subscriber_main(int domainId, int sample_count)
     /* To customize the subscriber QoS, use 
        the configuration file USER_QOS_PROFILES.xml */
     subscriber = participant->create_subscriber(
-        DDS_SUBSCRIBER_QOS_DEFAULT, NULL /* listener */, DDS_STATUS_MASK_NONE);
+            DDS_SUBSCRIBER_QOS_DEFAULT, NULL /* listener */, DDS_STATUS_MASK_NONE);
     if (subscriber == NULL) {
         printf("create_subscriber error\n");
         subscriber_shutdown(participant);
@@ -192,7 +195,7 @@ extern "C" int subscriber_main(int domainId, int sample_count)
     /* Register the type before creating the topic */
     type_name = LittleMsgTypeSupport::get_type_name();
     retcode = LittleMsgTypeSupport::register_type(
-        participant, type_name);
+            participant, type_name);
     if (retcode != DDS_RETCODE_OK) {
         printf("register_type error %d\n", retcode);
         subscriber_shutdown(participant);
@@ -202,9 +205,9 @@ extern "C" int subscriber_main(int domainId, int sample_count)
     /* To customize the topic QoS, use 
        the configuration file USER_QOS_PROFILES.xml */
     topic = participant->create_topic(
-        "CS464 Project 1 jjessen",
-        type_name, DDS_TOPIC_QOS_DEFAULT, NULL /* listener */,
-        DDS_STATUS_MASK_NONE);
+            "CS464 Project 1 jjessen",
+            type_name, DDS_TOPIC_QOS_DEFAULT, NULL /* listener */,
+            DDS_STATUS_MASK_NONE);
     if (topic == NULL) {
         printf("create_topic error\n");
         subscriber_shutdown(participant);
@@ -217,8 +220,8 @@ extern "C" int subscriber_main(int domainId, int sample_count)
     /* To customize the data reader QoS, use 
        the configuration file USER_QOS_PROFILES.xml */
     reader = subscriber->create_datareader(
-        topic, DDS_DATAREADER_QOS_DEFAULT, reader_listener,
-        DDS_STATUS_MASK_ALL);
+            topic, DDS_DATAREADER_QOS_DEFAULT, reader_listener,
+            DDS_STATUS_MASK_ALL);
     if (reader == NULL) {
         printf("create_datareader error\n");
         subscriber_shutdown(participant);
@@ -229,8 +232,8 @@ extern "C" int subscriber_main(int domainId, int sample_count)
     /* Main loop */
     for (count=0; (sample_count == 0) || (count < sample_count); ++count) {
 
-        printf("LittleMsg subscriber sleeping for %d sec...",
-               receive_period.sec);
+        printf("\nLittleMsg subscriber sleeping for %d sec...",
+                receive_period.sec);
 
         NDDSUtility::sleep(receive_period);
     }
@@ -247,20 +250,20 @@ int wmain(int argc, wchar_t** argv)
 {
     int domainId = 0;
     int sample_count = 0; /* infinite loop */ 
-    
+
     if (argc >= 2) {
         domainId = _wtoi(argv[1]);
     }
     if (argc >= 3) {
         sample_count = _wtoi(argv[2]);
     }
-    
+
     /* Uncomment this to turn on additional logging
-    NDDSConfigLogger::get_instance()->
-        set_verbosity_by_category(NDDS_CONFIG_LOG_CATEGORY_API, 
-                                  NDDS_CONFIG_LOG_VERBOSITY_STATUS_ALL);
-    */
-                                  
+       NDDSConfigLogger::get_instance()->
+       set_verbosity_by_category(NDDS_CONFIG_LOG_CATEGORY_API, 
+       NDDS_CONFIG_LOG_VERBOSITY_STATUS_ALL);
+       */
+
     return subscriber_main(domainId, sample_count);
 }
 
@@ -279,11 +282,11 @@ int main(int argc, char *argv[])
 
 
     /* Uncomment this to turn on additional logging
-    NDDSConfigLogger::get_instance()->
-        set_verbosity_by_category(NDDS_CONFIG_LOG_CATEGORY_API, 
-                                  NDDS_CONFIG_LOG_VERBOSITY_STATUS_ALL);
-    */
-                                  
+       NDDSConfigLogger::get_instance()->
+       set_verbosity_by_category(NDDS_CONFIG_LOG_CATEGORY_API, 
+       NDDS_CONFIG_LOG_VERBOSITY_STATUS_ALL);
+       */
+
     return subscriber_main(domainId, sample_count);
 }
 #endif
@@ -296,10 +299,10 @@ extern "C" void usrAppInit ()
 #ifdef  USER_APPL_INIT
     USER_APPL_INIT;         /* for backwards compatibility */
 #endif
-    
+
     /* add application specific code here */
     taskSpawn("sub", RTI_OSAPI_THREAD_PRIORITY_NORMAL, 0x8, 0x150000, (FUNCPTR)subscriber_main, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-   
+
 }
 #endif
 

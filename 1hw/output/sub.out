@@ -1,0 +1,40 @@
+RTI Data Distribution Service University License issued to Washington State University - WSU01-UP bakken@eecs.wsu.edu For non-production use only.
+Expires on 01-feb-2016 See www.rti.com for more information.
+
+LittleMsg subscriber sleeping for 6 sec...
+LittleMsg Received:
+sender: James
+message: Hello World!
+
+LittleMsg subscriber sleeping for 6 sec...
+LittleMsg Received:
+sender: James
+message: Hello World!
+
+LittleMsg Received:
+sender: James
+message: Hello World!
+
+LittleMsg subscriber sleeping for 6 sec...
+LittleMsg Received:
+sender: James
+message: Hello World!
+
+LittleMsg subscriber sleeping for 6 sec...
+LittleMsg Received:
+sender: James
+message: Hello World!
+
+LittleMsg Received:
+sender: James
+message: Hello World!
+
+LittleMsg subscriber sleeping for 6 sec...
+LittleMsg Received:
+sender: James
+message: Hello World!
+
+LittleMsg subscriber sleeping for 6 sec...
+LittleMsg Received:
+sender: James
+message: Hello World!
