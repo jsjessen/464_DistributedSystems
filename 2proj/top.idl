@@ -1,0 +1,11 @@
+// This is the Interface Definitation Language file
+// which is used to specify the data model
+struct TopFunction 
+{
+    string username;
+    string hostname;
+    string currentTime;
+    float cpuUsage;
+    float memUsage;
+    long procNumber;
+};
