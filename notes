@@ -1,0 +1,111 @@
+====================================================================================================
+Monday - Jan 12 
+====================================================================================================
+Introduction
+
+Recommends taking a Concurrent Programming class.
+
+Distributed Computing is different than Parallel Computing.
+
+    - delay
+    - partial failures
+    - sharing resources rather than dividing workload on a single computer
+
+====================================================================================================
+Friday - Jan 16
+====================================================================================================
+TA: Sayn (Pronounced: Cheyne as in Mt.)
+
+Local vs. Remote Procedure Call
+    
+Local call looks like usual code, lots of assumptions (Calling conventions, address space, language, cpu, OS, failure)
+        Caller -> Callee
+
+Remote: sharing things, normally not creating new object rather you are copying
+        Caller -> proxy -> skeleton -> Callee -> Proxy -> Caller
+        Request Msg / Reply Msg
+
+Read Ch 2
+
+====================================================================================================
+Wednesday - Jan 21 
+====================================================================================================
+
+Middleware we are using: RTI DDS
+
+====================================================================================================
+Friday - Jan 23 
+====================================================================================================
+Latency: addative, multiple network paths to reach final server
+Bandwidth: either you have enough or you don't (data flow)
+Jitter: Variance of latency
+
+Synchronous: now upper and lower bound of execution time, transmission time, and clock drift. (ex: factory real-time network)
+Asynchronous: no known bounds (might have to wait indefinetly) (ex: internet)
+
+Cause of asynch. clocks can't be the same and resource competition
+
+Synch calls block
+Asynch no block, get black something like a ticket
+
+====================================================================================================
+Monday - Jan 26 
+====================================================================================================
+Usually use middleware with an External Interface Definition Language (IDL)
+
+TCP has too much handshaking to be useful for multicasting, use UDP instead
+
+*Half page table on first exam, happened before/after/concurrent, message timeline
+Also figure out logical clock numbers
+Happened before on same process
+Send happened before receive
+Example on Logical Clock slides
+
+Long Exams (need to have it down pat)
+
+====================================================================================================
+Monday - Feb 6 
+====================================================================================================
+Synchronous alg
+---------------
+Bully
+Ring-based
+Multicast
+Voting
+Election
+
+Safety: Only 1 can access critical section at any time
+Liveness: Deadlock?
+Oordering: Logical ordering
+
+====================================================================================================
+Wednesday - Feb 11 
+====================================================================================================
+Get ordering with multicast by sending msg A from P0 then B from P1 ...
+casual ordering
+
+====================================================================================================
+Wednesday - Feb 25 
+====================================================================================================
+rtidsspy print (see every message sent
+
+            DomainParticipant
+             /            \
+        Publishers      Suscribers
+          /                  \
+    DataWriters             DataReaders
+
+Try to minimize number of DomainParticipants
+
+Receiving of a message is done in a Callback (aka listener)
+Never block a Callback
+Unless you need extreme performance, WaitSets are safer than Listener
+
+Client has a sockent, and Server has a socket
+Each socket is like a country
+Each country has ports, when a ship leaves the port of one country and arrives at the port of another.
+
+====================================================================================================
+Friday - Feb 27 
+====================================================================================================
+
