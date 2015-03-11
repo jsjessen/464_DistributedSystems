@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 project=2
 name=CS464Project${project}jjessen.zip
@@ -8,14 +8,12 @@ file[1]="top_publisher.cxx"
 file[2]="top_subscriber.cxx"
 file[3]="TopUtil.cxx"
 file[4]="TopUtil.h"
-file[4]="Makefile"
-file[5]="output/*"
+file[5]="Makefile"
+file[6]="output/*"
 
 rm -f $name
 
 for f in "${file[@]}"
 do
-    zip $name $f
+    zip $name ./$f
 done
-
-cp $git_pathname $home_pathname
