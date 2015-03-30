@@ -1,0 +1,118 @@
+Chapter 6: Indirect Communication
+
+Indirect Communication: communication betweeen entities in a DS through an intermediary with no direct coupling between sender and receiver(s). (Not a 1 to 1 connection, there is something in between. example: publish to memory bus which sends to subscriber)
+
+Easier to change and whatnot.
+
+Space coupled: sender must know ID of receivers
+Time coupled: sender must exist at the same time as reveivers
+
+if i contact a server and then later pick up a reply (asynch)
+    time/space uncoupling not directly related to async
+
+reliability: all or none get it (atomic)
+
+Total ordering and replication (state machine) good for fault-tolerence
+
+You can know what procs are in the group with IP-multicast unlike group com
+
+abstraction, resilent proc
+group of cooperating procs, is like a resiliant proc that never fails
+
+closed group: only group members may send to the group
+
+overlapping groups: a proc may belong to more than 1 group
+non-overlapping groups: a proc may belong to 0 or 1 groups 
+
+open group: must have address expansion at point where outside of group proc msg hits group (like ip multicast addresses)
+
+can drastically reduce throughput if trying to impose ordering, becuase you might have to wait to here from other (slower) procs before can send on a message
+
+group membership management: vector indicating who is presentally in the group
+IP multicast: 
+            1) sorta... basic
+            2) No
+            3) No
+            4) Yes
+
+--------------------------------------------------------------------------------
+More on indirect communication
+--------------------------------------------------------------------------------
+Publish-subscribe aka distributed event system
+
+Publishers publish structured events
+Subscribers express interest in particular events
+Event service (ES) match pulished events to subscriptions
+
+Heterogeneity - Can glue together systems not designed to work together
+Asynchrony - Spacial decoupling means you never have to block 
+Possible dilivery guarantees - All subscribers receive all events (atomicity)
+                             - Real-time
+
+Publishers:
+    publish(e)
+    advertise(f) is a bit richer, filter
+    expressiveness = subscription model
+    unadvertise
+Suscribers:
+    ...
+
+Channel-based: like a pipe where a bunch of unfiltered events get pushed through,
+               subscribers get all events from that channel
+               can't get bogged down by filtering
+
+Topic-based aka subject-based:
+    Each notification expressed in multiple fields, one is topic
+    subscribers can choose topic
+    Hierarchical topics can help (USENET rec.sports.cricket)
+
+Content-based
+    Over range of fields with constraints on values (expensive because someone has to filter it)
+    Far more expressive than channel-based or topic-based
+
+Type-based
+    object-based approach with object types
+    subs in terms of events
+    ...
+
+Objects of interest: like type-based, but on change in state of object
+mobile: also match based on context
+
+Concept-based subs: not just syntax, but semantics of events (not just data type but added semantic information)
+
+Complex event processing (CEP): patterns between diff events/loc/time
+                                patterns have be logical, spacial, temporal
+
+acm.ieee is a good source to bone up on a topic
+
+Centralized vs Distributed
+    \
+    Consistent information if only a single broker node
+    but single point of failure
+
+    Must implementations are networks of brokers like GridStat
+        can be done very efficiently, so can scale
+        (pub/subs don't know brokers exist)
+
+
+    Some are peer-to-peer (P2P) like RTI DDS
+        no infrastructure required
+
+Overall systems architecture
+    centralized schemes are simple
+    
+Channel-based or topic-based
+    map channels/topics onto group
+    use group's multicast (would have some failure model of whatever one it is)
+
+content/type is more complicated
+    read sec 6.10
+
+Flooding(with duplicated supression)
+    send event to all nodes using underlying multicast/broadcast
+    More complicated: brokers in acyclic forwarding grap and each node forwards to all it neighbors except the one that sent it to the node
+
+Filtering (filtered-based routing)
+    ...
+
+
