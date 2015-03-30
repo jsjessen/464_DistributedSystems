@@ -1,0 +1,227 @@
+***************************** MIDTERM EXAM NOTES *******************************
+
+Exam is 10 pages
+It will be curved!
+You are not expected to finish, so skip hard problems.
+Most problems will require a paragraph of analysis.
+
+================================================================================
+Intro slides
+--------------------------------------------------------------------------------
+
+A distributed system (DS or DC) is “one in which hardware or software
+components located at networked computers communicate
+and coordinate their actions only by message passing”
+
+Difficulties and Threats for DSs:
+    •Widely varying modes of use
+        - Workload
+        - Some parts disconnected or with flaky connectivity
+        - Some need high bandwidth and/or low latency
+    •Wide range of system environments
+        - Heterogenieties
+        - Networks vary widely in performance (statically and dynamically)
+        - Scale from tens to millions of computers
+    •Internal problems
+        - Non-synchronized clocks
+        - Conflicting data updates
+        - Many modes of HW+SW failure for individual components
+    •External threats: attacks on
+        - Confidentiality
+        - Integrity
+        - Availabiilty (incl. DoS attacks)
+        
+----------------------------
+Parallel vs. distributed
+----------------------------
+Both: 
+    multiple processors (interconnected by some "network") in progress at 
+    the same time and cooperate with each other
+
+Parallel Computing:
+    Splits an application up into tasks that are
+    executed at the SAME TIME.
+
+    An application is split into subtasks that are solved
+    simultaneously, often in a “tightly coupled” manner
+    – One application is considered at a time, with the goal of
+    speeding up the processing of that single application
+    – Programs are generally run on homogeneous
+    architectures, which typically have shared memory
+    – Fault tolerance and security are not generally considered
+
+Distributed Computing:
+    Splits an application up into tasks that are executed at
+    DIFFERENT LOCATIONS using DIFFERENT RESOURCES.
+
+    – Computation uses multiple resources physically
+    separated: processors, memory, disk, databases
+    – Multiple applications run at a time for many users
+    – Heterogenous systems, open and dynamic
+    – No shared memory, at least not in hardware
+    – Fault tolerance and security must be dealt with (in some
+    manner)
+    – Sometimes the emphasis is on hiding system internals in
+    a manner that the distributed system looks like a single
+    large machine. Feature called a single system image,
+    used in cluster computing.
+
+Convergence:
+    Architectures approaching each other
+    – Fast network technologies allow cluster computing
+    – Parallel machines increasingly used as servers in a DS
+    Parallelism and distribution are closely related
+    – Main differences in distribution: delay and partial failures
+
+----------------------------
+Remote vs. Local calls
+----------------------------
+Local Call:
+     Potential assumptions between caller and callee:
+     - Assembler calling conventions
+     - In same address space (on same computer)
+     - In same programming language (usually)
+     - Same operating system
+     - Same CPU type
+     - Can transfer data and control quickly, effectively in zero time
+     - Both fail, or neither do (for the most part)
+
+Remote Call:
+    - Not a local object Invocation, so need more help
+    -     Need remote equivalent of local (assembler) calling conventions
+    - Not in same programming language (can’t assume)
+    - Not written by same programmer
+    - Not running same operating system for caller and callee
+    - Not same CPU type for caller and callee
+    - Not always in the same administrative domain
+    - Latency for transfer of control and data can be large and, worse, unpredictable
+    - Partial failures
+    - Membership of the system (the computers in its collection) can change
+    - Unreliable or insecure communication
+
+----------------------------
+Middleware: concepts, layers
+----------------------------
+
+================================================================================
+Ch 1: Characterization of Distributed Systems
+--------------------------------------------------------------------------------
+Skim
+
+================================================================================
+Ch 2: System Models
+--------------------------------------------------------------------------------
+How did we describe systems in these different ways?
+
+Need to consider 4 key questions:
+1. What ENTITIES are communicating in the DS?
+2. What COMMUNICATION PARADIGM/PATTERN do entities use?
+    - Interprocess Communication
+        • Low-level support for communication
+        • Usually socket API
+    - Remote Invocation
+        •Most common (arguably), two-way exchange; buildup…
+        •Request-reply protocols (application level)
+            - Pattern imposed on underlying message passing to support client-server
+            - Client app code sends message with operation, params, 
+              bookeeping in request message
+            - Server sends msg with bookkeeping, params in reply message
+            - Low-level, typically simple embedded systems w/strong RT needs
+        •Remote procedure call (RPC)
+            - Make a remote call look (almost) like a local call
+            - Supports many transparencies and heterogeneities
+            - Directly supports client-server computing at higher level than RRPs
+    - Indirect Communication
+        •Remote method invocation (RMI)
+            - Extends procedural RPC to object-oriented programming
+            - Multiple object instances: can pass object refs/IDs as params
+            - Tighter integration than RPC into the language
+3. What ROLES AND RESPONSIBILITIES do entities have (may change)
+4. How are entities mapped onto physical infrastructure (PLACEMENT)
+
+----------------------------
+Physical Models
+----------------------------
+Hardware composition of computers (and devices) and networks that interconnect them
+
+Representation of underlying HW in a DS that abstracts 
+away specific details of techs (comp+net):
+    • Baseline model (minimal): extensible set of computer nodes
+    interconnected by a network that passes messages
+    • Beyond this, 3 generations of DSs: early, internet-scale,
+    contemporary
+
+Scale:
+Heterogeneity:
+Openness:
+Quality of service (QoS):
+
+----------------------------
+Architectural Models
+----------------------------
+Describe w.r.t. computational tasks done by computational 
+elements (single or aggregate) connected by networks
+
+----------------------------
+Functional Models (incl. failure models)
+----------------------------
+Abstract perspective examining an individual aspect of a distributed system
+
+Interaction models (struct+seq of elements’ comms) 
+failure models 
+security models
+
+================================================================================
+Ch 14: Time and Global States
+--------------------------------------------------------------------------------
+Will fill in a grid as shown in class with happen-before logic 
+Logical Time and Logical Clocks
+Vector time (auxiliary material)
+Cuts
+Chandy and Lamport’s Shapshot Algorithm
+NOT testing on Lattices
+
+================================================================================
+Ch 15: Coordination and Agreement
+--------------------------------------------------------------------------------
+Don't need a complete alg, but maybe summary of approach
+Distributed Mutual Exclusion
+Elections
+Group communication and how you can coordinate with it
+Agreement
+
+================================================================================
+Ch 4: Interprocess Communication (IPC)
+--------------------------------------------------------------------------------
+Will never have you code up middleware on a test
+but need a concrete feel of the nuts & bolts
+kind of things you need to handle at the socket level, esp. that handled by middleware
+
+Network virtualization: overlay networks
+Do they support or contradict the end-to-end model?
+
+API for Internet protocols
+External data representation and marshalling
+Multicast communications
+Network virtualization: overlay networks
+Case Study: MPI (Sayan’s slides) (not directly tested)
+
+================================================================================
+Ch 5: Remove Invocation
+--------------------------------------------------------------------------------
+Request/call semantics (at least once, at most once, ...) how they add up
+Request-reply protocols
+Remote procedure call
+Remove method invocation
+Case study: Java RMI (not directly tested)
+
+================================================================================
+CORBA - nuts and bolts
+--------------------------------------------------------------------------------
+...
+
+================================================================================
+Linda, FT-Linda, and Jini - basics
+--------------------------------------------------------------------------------
+...
+
