@@ -1,0 +1,16 @@
+GridStat
+
+What do we need for wide area sensor development?
+
+1st Source on source info slide
+Can skim over the power parts but it would be good to read about the gridStat stuff.
+
+Wide Range of Quality of Service (QoS) Requirements
+    QoS (latency, rate), availability/criticality
+
+...
+
+Rate based forwarding (as opposed to 
+
+Keep around old shitty communication stuff if it has a different failure model, use to send redundant data
+
