@@ -1,0 +1,15 @@
+Chapter 10: Peer-to-Peer
+========================
+
+No single point for copyright liability, ...
+Fully decentralized, self-organizing
+
+Hard to attack and spread out the load
+
+Store large collections of immutable data
+When you allow changes, then you have to figure out how to get the latest version
+
+JJ: Can have a mix of P2P and a admin server for indexing plus tracking updates
+    Plague model could help with updates too
+        either for spreading updates
+        or competing updates, where only the strongest survives

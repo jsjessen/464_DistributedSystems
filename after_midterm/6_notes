@@ -115,4 +115,19 @@ Flooding(with duplicated supression)
 Filtering (filtered-based routing)
     ...
 
+Shared memory approach doesn't scale well because of the computational demand
 
+If there is no marshalling, then it can't be very heterogenius
+
+Locallity is important for performance, so if you make distributed memory transparent (can't see) then performance drops
+
+You don't want complete transparency so you can have some idea what's going on to improve efficiency
+
+Compare the alarm app (Fig 6.24 ...) to pub-sub alarm app
+
+Middleware makes a distributed programming language obsolete now that it is mature enough
+
+*EXAM
+It would be good to understand table on last slide
+Could be fill in the blank
+or write a sentence about each part of it
